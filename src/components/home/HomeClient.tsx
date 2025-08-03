@@ -23,7 +23,7 @@ export default function HomeClient({
   mostCommented: PostMostCommented[]
 }) {
   return (
-    <main className="min-h-screen">
+    <main className='min-h-screen'>
       <HeroSection />
       <RecentPostsSection posts={posts} />
       <PopularTagsSection tags={popularTags} />

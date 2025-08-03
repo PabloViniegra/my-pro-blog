@@ -5,7 +5,7 @@ import { shadcn } from '@clerk/themes'
 
 export default function SignInPage() {
   return (
-    <div className="min-h-screen bg-background flex items-center justify-center p-4">
+    <div className='min-h-screen bg-background flex items-center justify-center p-4'>
       <SignIn
         appearance={{
           variables: {
@@ -17,8 +17,8 @@ export default function SignInPage() {
           },
           theme: shadcn
         }}
-        signUpUrl="/signup"
-        fallbackRedirectUrl="/"
+        signUpUrl='/signup'
+        fallbackRedirectUrl='/'
       />
     </div>
   )

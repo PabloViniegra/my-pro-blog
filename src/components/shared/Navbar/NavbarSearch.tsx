@@ -36,8 +36,8 @@ export default function NavbarSearch() {
   }
 
   return (
-    <div className="hidden md:flex items-center gap-4">
-      <div className="flex items-center">
+    <div className='hidden md:flex items-center gap-4'>
+      <div className='flex items-center'>
         <Input
           classNames={{
             base: 'w-48',
@@ -45,11 +45,11 @@ export default function NavbarSearch() {
             inputWrapper:
               'h-9 bg-background border-border/50 hover:bg-background/80'
           }}
-          placeholder="Buscar artículos"
-          size="sm"
-          startContent={<Search className="text-foreground/50" size={16} />}
-          type="search"
-          variant="bordered"
+          placeholder='Buscar artículos'
+          size='sm'
+          startContent={<Search className='text-foreground/50' size={16} />}
+          type='search'
+          variant='bordered'
           value={query}
           onKeyDown={handleKeyDown}
           onChange={handleChange}

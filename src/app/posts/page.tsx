@@ -26,14 +26,14 @@ export default async function PostsPage({
   const meta = result.meta || {}
 
   return (
-    <section className="min-h-screen">
+    <section className='min-h-screen'>
       <Navbar />
-      <div className="max-w-4xl mx-auto mt-20 mb-10">
+      <div className='max-w-4xl mx-auto mt-20 mb-10'>
         <PostsHeader search={search} meta={meta} />
         {posts.length === 0 ? (
           <NotFoundPosts search={search} />
         ) : (
-          <div className="grid gap-8 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+          <div className='grid gap-8 grid-cols-1 md:grid-cols-2 lg:grid-cols-3'>
             {posts.map((post) => (
               <PostCard key={post.id} post={post} />
             ))}

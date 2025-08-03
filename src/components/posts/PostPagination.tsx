@@ -22,11 +22,11 @@ export default function PostPagination({ page, totalPages }: Props) {
   }
 
   return (
-    <div className="flex justify-center my-8">
+    <div className='flex justify-center my-8'>
       <Pagination
         total={totalPages}
         page={page}
-        variant="bordered"
+        variant='bordered'
         onChange={handlePageChange}
         showControls
         loop

@@ -17,11 +17,11 @@ export default function ThemeSwitcher() {
     return (
       <Button
         isIconOnly
-        variant="light"
-        aria-label="Toggle theme"
-        className="w-9 h-9"
+        variant='light'
+        aria-label='Toggle theme'
+        className='w-9 h-9'
       >
-        <Sun className="h-4 w-4" />
+        <Sun className='h-4 w-4' />
       </Button>
     )
   }
@@ -33,22 +33,22 @@ export default function ThemeSwitcher() {
   const getThemeIcon = () => {
     switch (theme) {
       case 'light':
-        return <Sun className="h-4 w-4" />
+        return <Sun className='h-4 w-4' />
       case 'dark':
-        return <Moon className="h-4 w-4" />
+        return <Moon className='h-4 w-4' />
       default:
-        return <Monitor className="h-4 w-4" />
+        return <Monitor className='h-4 w-4' />
     }
   }
 
   return (
-    <div className="flex items-center">
+    <div className='flex items-center'>
       <Button
         isIconOnly
-        variant="light"
+        variant='light'
         onClick={toggleTheme}
         aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
-        className="w-9 h-9 text-foreground/80 hover:text-foreground hover:bg-accent/50"
+        className='w-9 h-9 text-foreground/80 hover:text-foreground hover:bg-accent/50'
       >
         {getThemeIcon()}
       </Button>

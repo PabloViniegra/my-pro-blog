@@ -13,7 +13,7 @@ export default function NavbarLinks() {
   const pathName = usePathname()
   console.log(pathName)
   return (
-    <NavbarContent className="flex items-center gap-8">
+    <NavbarContent className='flex items-center gap-8'>
       {links.map((link) => (
         <NavbarItem key={link.href}>
           <Link

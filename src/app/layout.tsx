@@ -41,7 +41,7 @@ export default function RootLayout({
 }>) {
   return (
     <ClerkProvider>
-      <html lang="es" className="dark" suppressHydrationWarning>
+      <html lang='es' className='dark' suppressHydrationWarning>
         <body
           className={`${dmSans.variable} ${jetBrainsMono.variable} ${nunitoSans.variable} ${montserrat.className} antialiased`}
         >

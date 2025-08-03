@@ -11,18 +11,18 @@ export default function Navbar() {
   return (
     <HerouiNavbar
       isBordered
-      className="bg-background/80 backdrop-blur-sm border-b border-border/40"
-      maxWidth="full"
+      className='bg-background/80 backdrop-blur-sm border-b border-border/40'
+      maxWidth='full'
     >
-      <header className="w-full flex items-center">
-        <div className="flex-shrink-0">
+      <header className='w-full flex items-center'>
+        <div className='flex-shrink-0'>
           <NavbarBrand />
         </div>
-        <div className="hidden md:flex mx-auto">
+        <div className='hidden md:flex mx-auto'>
           <NavbarLinks />
         </div>
-        <div className="flex items-center gap-4 ml-auto">
-          <div className="hidden md:block">
+        <div className='flex items-center gap-4 ml-auto'>
+          <div className='hidden md:block'>
             <NavbarSearch />
           </div>
           <NavbarUserMenu />

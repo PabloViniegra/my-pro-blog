@@ -8,11 +8,11 @@ export default function PostsHeader({
   meta?: MetaPost
 }) {
   return (
-    <div className="mb-12 text-center">
-      <h1 className="text-4xl font-bold font-sans mb-4">
+    <div className='mb-12 text-center'>
+      <h1 className='text-4xl font-bold font-sans mb-4'>
         {search ? `Resultados para "${search}"` : 'Todos los posts'}
       </h1>
-      <p className="text-muted-foreground font-serif tracking-wide">
+      <p className='text-muted-foreground font-serif tracking-wide'>
         {search
           ? `${meta?.total} ${
               meta?.total === 1
