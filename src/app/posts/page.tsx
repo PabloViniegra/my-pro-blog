@@ -8,7 +8,7 @@ import { auth } from '@clerk/nextjs/server'
 import { redirect } from 'next/navigation'
 
 type Params = Promise<{
-  searchParams: { [key: string]: string | string[] | undefined }
+  searchParams: { [key: string]: string | string[] }
 }>
 
 export default async function PostsPage(props: { params: Params }) {
