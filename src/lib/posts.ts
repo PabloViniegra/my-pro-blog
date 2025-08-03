@@ -70,7 +70,7 @@ export async function getAllPosts({
   offset?: number
 }): Promise<PostResponse> {
   const conditions = ['p.published = true']
-  const params: any[] = []
+  const params: (string | number)[] = []
 
   if (search) {
     conditions.push(

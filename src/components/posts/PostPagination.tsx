@@ -11,7 +11,7 @@ type Props = {
 export default function PostPagination({ page, totalPages }: Props) {
   const router = useRouter()
   const pathname = usePathname()
-  let searchParams = useSearchParams()
+  const searchParams = useSearchParams()
 
   if (totalPages <= 1) return null
 
