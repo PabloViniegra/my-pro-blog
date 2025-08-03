@@ -13,7 +13,7 @@ export async function GET(req: NextRequest) {
   const limit = Math.min(parseInt(searchParams.get('limit') ?? '10', 10), 50)
   const offset = (page - 1) * limit
 
-  const data = await getAllPosts(q, tag, page, limit, offset)
+  const data = await getAllPosts({ search: q, tag, page, limit, offset })
 
   return NextResponse.json(data)
 }
