@@ -9,13 +9,15 @@ export function FooterContact() {
       </h3>
       <ul className="space-y-3.5">
         <li>
-          <Link 
-            href="mailto:pablovpmadrid@gmail.com" 
+          <Link
+            href="mailto:pablovpmadrid@gmail.com"
             className="group flex items-center space-x-3 text-muted-foreground transition-colors hover:text-foreground"
             aria-label="Enviar correo electrónico"
           >
             <Mail className="h-4.5 w-4.5 flex-shrink-0 text-muted-foreground transition-colors group-hover:text-foreground" />
-            <span className="font-sans text-sm leading-relaxed">pablovpmadrid@gmail.com</span>
+            <span className="font-sans text-sm leading-relaxed">
+              pablovpmadrid@gmail.com
+            </span>
           </Link>
         </li>
         <li className="flex items-start space-x-3">
