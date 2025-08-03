@@ -1,6 +1,6 @@
 'use client'
 
-import { Navbar as HerouiNavbar, NavbarContent } from '@heroui/react'
+import { Navbar as HerouiNavbar } from '@heroui/react'
 import NavbarBrand from '@/components/shared/Navbar/NavbarBrand'
 import NavbarLinks from '@/components/shared/Navbar/NavbarLinks'
 import NavbarSearch from '@/components/shared/Navbar/NavbarSearch'
