@@ -1,31 +1,33 @@
-import Navbar from '@/features/shared/Navbar'
+import Navbar from '@/components/shared/Navbar/Navbar'
 import { getMostCommentedPosts, getRecentPosts } from '@/lib/posts'
 import { getPopularTags } from '@/lib/tags'
-import { HomeClient } from '@/components/HomeClient'
-import Loading from './loading'
-import { Suspense } from 'react'
-import Footer from '@/features/shared/Footer'
+import HomeClient from '@/components/home/HomeClient'
+import Footer from '@/components/shared/Footer/Footer'
 import getTopUsers from '@/lib/users'
 
+export const metadata = {
+  title: 'My Pro Blog - Inicio',
+  description:
+    'Descubre los mejores artículos de desarrollo web, tecnología y más.'
+}
+
 export default async function Home() {
-  const recentPosts = await getRecentPosts()
-  const popularTags = await getPopularTags()
-  const [users, commented] = await Promise.all([
+  const [users, commented, recentPosts, popularTags] = await Promise.all([
     getTopUsers(5),
-    getMostCommentedPosts()
+    getMostCommentedPosts(),
+    getRecentPosts(),
+    getPopularTags()
   ])
 
   return (
     <main>
       <Navbar />
-      <Suspense fallback={<Loading />}>
-        <HomeClient
-          posts={recentPosts}
-          popularTags={popularTags}
-          topUsers={users}
-          MostCommented={commented}
-        />
-      </Suspense>
+      <HomeClient
+        posts={recentPosts}
+        popularTags={popularTags}
+        topUsers={users}
+        mostCommented={commented}
+      />
       <Footer />
     </main>
   )

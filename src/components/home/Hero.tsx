@@ -14,7 +14,7 @@ export default function Hero() {
         </p>
         <Button
           as="a"
-          href="/blog"
+          href="/posts"
           size="lg"
           className="gap-2 font-serif bg-primary text-primary-foreground hover:bg-primary/90 transition-colors"
         >

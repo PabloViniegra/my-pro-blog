@@ -27,6 +27,18 @@ export interface Post {
   updated_at: string
 }
 
+export interface MetaPost {
+  page: number
+  limit: number
+  total: number
+  totalPages: number
+}
+
+export interface PostResponse {
+  data: PostWithAvatar[]
+  meta: MetaPost
+}
+
 export interface PostWithAvatar {
   id: string
   title: string
@@ -57,6 +69,10 @@ export interface PostMostCommented {
   title: string
   comment_count: number
   author_name: string
-  avatar_url: string
+  author_avatar: string
   created_at: string
+  last_comment_id: string
+  last_comment_content: string
+  last_comment_author_name: string
+  last_comment_author_avatar: string
 }

@@ -4,21 +4,19 @@ import { Swiper, SwiperSlide } from 'swiper/react'
 import 'swiper/css'
 import 'swiper/css/navigation'
 import 'swiper/css/pagination'
-import { Navigation, Pagination, Autoplay } from 'swiper/modules'
+import { Pagination, Autoplay } from 'swiper/modules'
 import { PostWithAvatar } from '@/types'
 import Image from 'next/image'
 
 export default function PostsCarousel({ posts }: { posts: PostWithAvatar[] }) {
   return (
     <Swiper
-      modules={[Navigation, Pagination, Autoplay]}
+      modules={[Pagination, Autoplay]}
       slidesPerView={3}
-      spaceBetween={30}
+      spaceBetween={2}
       loop
-      navigation={true}
       autoplay={{ delay: 5000 }}
       grabCursor={true}
-      className="mySwiper"
       pagination={{ clickable: true }}
     >
       {posts.map((post) => (

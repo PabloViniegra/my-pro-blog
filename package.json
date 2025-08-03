@@ -12,6 +12,7 @@
     "@clerk/nextjs": "^6.28.1",
     "@clerk/themes": "^2.4.4",
     "@heroui/react": "^2.8.2",
+    "@vercel/blob": "^1.1.1",
     "@vercel/postgres": "^0.10.0",
     "date-fns": "^4.1.0",
     "embla-carousel-react": "^8.6.0",
