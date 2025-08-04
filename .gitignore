@@ -40,3 +40,6 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 bash.exe.stackdump
+
+.vercel
+.env*.local
