@@ -2,7 +2,7 @@ import { sql } from '@vercel/postgres'
 import { NextRequest, NextResponse } from 'next/server'
 import { auth, clerkClient } from '@clerk/nextjs/server'
 import { getOrCreateUser } from '@/lib/db'
-import { getAllPosts } from '@/lib/posts'
+import { createPost, getAllPosts } from '@/lib/posts'
 
 export async function GET(req: NextRequest) {
   const { searchParams } = req.nextUrl
@@ -41,10 +41,13 @@ export async function POST(req: NextRequest) {
     )
   }
 
-  const { rows } = await sql`
-    INSERT INTO posts (title, content, image_url, tags, published, author_id)
-    VALUES (${title}, ${content}, ${image_url}, ${tags}, ${published}, ${userId})
-    RETURNING *
-  `
-  return NextResponse.json(rows[0])
+  const post = await createPost({
+    title,
+    content,
+    image_url,
+    tags,
+    published,
+    author_id: userId
+  })
+  return NextResponse.json(post)
 }

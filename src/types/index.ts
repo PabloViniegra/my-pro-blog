@@ -76,3 +76,12 @@ export interface PostMostCommented {
   last_comment_author_name: string
   last_comment_author_avatar: string
 }
+
+export interface PostCreate {
+  title: string
+  content: string
+  image_url: string
+  tags: string[]
+  published: boolean
+  author_id: string
+}

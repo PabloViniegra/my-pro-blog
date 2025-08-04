@@ -16,7 +16,8 @@ const eslintConfig = [
       semi: ['error', 'never'],
       quotes: ['error', 'single'],
       'comma-dangle': ['error', 'never'],
-      'jsx-quotes': ['error', 'prefer-single']
+      'jsx-quotes': ['error', 'prefer-single'],
+      '@typescript-eslint/no-explicit-any': 'off',
     }
   }
 ]

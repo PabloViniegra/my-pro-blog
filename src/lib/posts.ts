@@ -1,4 +1,9 @@
-import { PostMostCommented, PostResponse, PostWithAvatar } from '@/types'
+import {
+  PostCreate,
+  PostMostCommented,
+  PostResponse,
+  PostWithAvatar
+} from '@/types'
 import { sql } from '@vercel/postgres'
 
 export async function getRecentPosts() {
@@ -121,4 +126,23 @@ export async function getAllPosts({
       totalPages: Math.ceil(total / limit)
     }
   }
+}
+
+export async function createPost(post: PostCreate) {
+  const tagsArray = `{${post.tags.map((tag) => `"${tag}"`).join(',')}}`
+
+  const { rows } = await sql`
+    INSERT INTO posts (title, content, image_url, tags, published, author_id)
+    VALUES (
+      ${post.title},
+      ${post.content},
+      ${post.image_url},
+      ${tagsArray}::text[],
+      ${post.published},
+      ${post.author_id}
+    )
+    RETURNING *
+  `
+
+  return rows[0]
 }
