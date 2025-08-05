@@ -6,7 +6,9 @@ const nextConfig: NextConfig = {
       'picsum.photos',
       'images.unsplash.com',
       'i.pinimg.com',
-      'i.pravatar.cc'
+      'i.pravatar.cc',
+      'res.cloudinary.com',
+      'images.unsplash.com'
     ]
   }
 }

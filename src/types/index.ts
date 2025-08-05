@@ -9,6 +9,7 @@ export interface User {
 }
 
 export interface UserSimple {
+  id: string
   clerk_id: string
   email: string
   name: string

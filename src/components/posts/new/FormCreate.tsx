@@ -2,11 +2,38 @@
 
 import { useState } from 'react'
 import PostImageForm from '@/components/posts/new/PostImageForm'
-import { Input, Textarea } from '@heroui/react'
+import { Input, Textarea, Button } from '@heroui/react'
 import MdEditor from './MdEditor'
+import { FilePlus } from 'lucide-react'
+import TagSelector from './TagSelector'
+import { createPostAction } from '@/app/actions/createPost'
+import { useFormStatus } from 'react-dom'
+
+function SubmitButton() {
+  const { pending } = useFormStatus()
+  return (
+    <Button
+      type='submit'
+      variant='flat'
+      isLoading={pending}
+      startContent={
+        <FilePlus className='size-4 transition-transform group-hover:scale-110' />
+      }
+      className='group relative overflow-hidden bg-sidebar rounded-full font-mono tracking-tight text-sidebar-foreground hover:shadow-lg hover:shadow-primary/20 transition-all duration-300 font-medium px-7 py-2.5 border border-primary/20 hover:border-primary/30'
+    >
+      <span className='relative z-10 flex items-center gap-2'>
+        <span>Crear publicación</span>
+      </span>
+      <span className='absolute inset-0 bg-gradient-to-r from-primary/0 via-white/10 to-primary/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 -skew-x-12 -translate-x-full group-hover:translate-x-full'></span>
+    </Button>
+  )
+}
 
 export default function FormCreate() {
   const [content, setContent] = useState('')
+  const [tags, setTags] = useState<string[]>([])
+  const [title, setTitle] = useState('')
+  const [imageUrl, setImageUrl] = useState<string | null>(null)
 
   return (
     <section className='w-full max-w-6xl mx-auto mt-10 px-4'>
@@ -14,18 +41,23 @@ export default function FormCreate() {
         Crea tu blog
       </h1>
 
-      <form className='flex flex-col gap-4'>
-        <h6 className='text-md font-medium font-serif tracking-tight text-foreground/70'>
-          Imagen
-        </h6>
-        <PostImageForm />
+      <form action={createPostAction} className='flex flex-col gap-4'>
+        <header className='flex flex-row items-center justify-between max-w-6xl'>
+          <h6 className='text-md font-medium font-serif tracking-tight text-foreground/70'>
+            Imagen
+          </h6>
+          <SubmitButton />
+        </header>
+        <PostImageForm onChange={setImageUrl} />
 
         <Input
+          name='title'
           placeholder='Título del post'
           variant='faded'
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
           classNames={{
             input: [
-              'my-10',
               'font-serif',
               'text-lg',
               'font-bold',
@@ -56,6 +88,15 @@ export default function FormCreate() {
             ]
           }}
         />
+        <h6 className='text-md font-medium font-serif tracking-tight text-foreground/70 mt-10'>
+          Tags
+        </h6>
+        <TagSelector
+          tags={tags}
+          onTagsChange={setTags}
+          placeholder='Escribe y presiona Enter para agregar tags...'
+          maxTags={10}
+        />
 
         <div className='grid grid-cols-1 lg:grid-cols-2 gap-6 mt-8 h-[calc(100vh-250px)] mb-12'>
           <div className='flex flex-col h-full'>
@@ -71,21 +112,33 @@ export default function FormCreate() {
             <div className='flex-1 flex flex-col rounded-lg border border-border bg-background overflow-hidden shadow-sm'>
               <div className='px-4 py-2 border-b border-border bg-muted/20'>
                 <div className='flex gap-2'>
-                  {['#', '**B**', '*I*', '`', '>', '-', '1.', '[Link]()', '![Image](src)'].map((item, i) => (
+                  {[
+                    '#',
+                    '**B**',
+                    '*I*',
+                    '`',
+                    '>',
+                    '-',
+                    '1.',
+                    '[Link]()',
+                    '![Image](src)'
+                  ].map((item, i) => (
                     <button
                       key={i}
                       type='button'
                       className='text-xs px-2 py-1 rounded hover:bg-muted/50 transition-colors'
                       onClick={() => {
-                        // Aquí podrías agregar la lógica para insertar la sintaxis
                         const textarea = document.querySelector('textarea')
                         if (textarea) {
                           const start = textarea.selectionStart
                           const end = textarea.selectionEnd
                           const selectedText = content.substring(start, end)
-                          const newText = content.substring(0, start) + item + selectedText + content.substring(end)
+                          const newText =
+                            content.substring(0, start) +
+                            item +
+                            selectedText +
+                            content.substring(end)
                           setContent(newText)
-                          // Mantener el foco en el textarea
                           setTimeout(() => {
                             textarea.focus()
                             textarea.selectionStart = start + item.length
@@ -100,6 +153,7 @@ export default function FormCreate() {
                 </div>
               </div>
               <Textarea
+                name='content'
                 placeholder='Escribe tu contenido en markdown...'
                 variant='flat'
                 value={content}
@@ -161,7 +215,9 @@ export default function FormCreate() {
             <div className='flex-1 flex flex-col overflow-y-auto rounded-lg border border-border bg-background shadow-sm'>
               <div className='px-4 py-2 border-b border-border bg-muted/20 flex items-center justify-between'>
                 <span className='text-xs text-muted-foreground'>
-                  {content ? 'Vista previa en tiempo real' : 'La vista previa aparecerá aquí'}
+                  {content
+                    ? 'Vista previa en tiempo real'
+                    : 'La vista previa aparecerá aquí'}
                 </span>
                 <div className='flex items-center gap-1 text-xs text-muted-foreground'>
                   <span className='inline-flex h-2 w-2 rounded-full bg-emerald-500/80'></span>

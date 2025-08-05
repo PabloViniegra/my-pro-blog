@@ -4,7 +4,11 @@ import { useRef, useState } from 'react'
 import { Button, Spinner } from '@heroui/react'
 import { Image as ImageIcon, Upload } from 'lucide-react'
 
-export default function PostImageForm() {
+export default function PostImageForm({
+  onChange
+}: {
+  onChange: (url: string | null) => void
+}) {
   const [imageUrl, setImageUrl] = useState<string | null>(null)
   const [isUploading, setIsUploading] = useState(false)
   const [previewUrl, setPreviewUrl] = useState<string | null>(null)
@@ -17,7 +21,6 @@ export default function PostImageForm() {
     if (!file) return
 
     const preview = URL.createObjectURL(file)
-    console.log('Preview URL:', preview)
     setPreviewUrl(preview)
 
     setIsUploading(true)
@@ -43,6 +46,7 @@ export default function PostImageForm() {
       }
 
       setImageUrl(data.url)
+      onChange(data.url)
     } catch (error) {
       console.error('Upload error:', error)
       alert(error instanceof Error ? error.message : 'Failed to upload image')
@@ -56,8 +60,9 @@ export default function PostImageForm() {
   }
 
   return (
-    <div className='space-y-4'>
+    <div className='space-y-4 mb-10'>
       <input
+        name='image_url'
         type='file'
         accept='image/*'
         onChange={handleImageChange}
