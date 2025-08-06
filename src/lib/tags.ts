@@ -1,4 +1,4 @@
-import { TagPopular } from '@/types'
+import { TagName, TagPopular } from '@/types'
 import { sql } from '@vercel/postgres'
 
 export async function getPopularTags(limit: number = 10) {
@@ -12,5 +12,15 @@ export async function getPopularTags(limit: number = 10) {
     ORDER BY count DESC
     LIMIT ${limit}`
 
+  return rows
+}
+
+export async function getAllDistinctTags() {
+  const { rows } = await sql<TagName>`
+    SELECT DISTINCT unnest(tags) AS name
+    FROM posts
+    WHERE published = true
+    ORDER BY name
+  `
   return rows
 }

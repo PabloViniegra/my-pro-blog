@@ -1,6 +1,7 @@
 import Image from 'next/image'
 import { Crown } from 'lucide-react'
 import type { TopUser } from '@/types'
+import { getSafeImageSrc } from '@/utils/utils'
 
 export default function TopUsersCard({ users }: { users: TopUser[] }) {
   return (
@@ -19,7 +20,7 @@ export default function TopUsersCard({ users }: { users: TopUser[] }) {
           >
             <div className='relative flex-shrink-0'>
               <Image
-                src={u.avatar_url || '/avatar.png'}
+                src={getSafeImageSrc(u.avatar_url) || '/avatar.png'}
                 alt={u.name}
                 width={40}
                 height={40}

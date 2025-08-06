@@ -14,13 +14,11 @@ export default function NavbarSearch() {
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === 'Enter') {
-      const params = new URLSearchParams(searchParams)
+      const params = new URLSearchParams()
       if (query) {
         params.set('search', query)
-      } else {
-        params.delete('search')
       }
-      replace(`${pathName}?${params.toString()}`)
+      replace(`/posts?${params.toString()}`)
     }
   }
 

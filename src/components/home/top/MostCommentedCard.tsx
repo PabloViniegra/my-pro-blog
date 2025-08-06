@@ -4,6 +4,7 @@ import { MessageSquare } from 'lucide-react'
 import { PostMostCommented } from '@/types'
 import { format } from 'date-fns'
 import { es } from 'date-fns/locale'
+import { getSafeImageSrc } from '@/utils/utils'
 
 export default function MostCommentedCard({
   commented
@@ -47,7 +48,10 @@ export default function MostCommentedCard({
                   <div className='relative flex-shrink-0'>
                     <div className='w-10 h-10 rounded-full overflow-hidden border-2 border-border/50'>
                       <Image
-                        src={post.last_comment_author_avatar || '/avatar.png'}
+                        src={
+                          getSafeImageSrc(post.last_comment_author_avatar) ||
+                          '/avatar.png'
+                        }
                         alt={post.last_comment_author_name || 'Autor'}
                         width={40}
                         height={40}

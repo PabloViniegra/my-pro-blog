@@ -58,6 +58,10 @@ export interface TagPopular {
   count: number
 }
 
+export interface TagName {
+  name: string
+}
+
 export interface TopUser {
   id: string
   name: string

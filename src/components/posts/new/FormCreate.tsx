@@ -7,33 +7,16 @@ import MdEditor from './MdEditor'
 import { FilePlus } from 'lucide-react'
 import TagSelector from './TagSelector'
 import { createPostAction } from '@/app/actions/createPost'
-import { useFormStatus } from 'react-dom'
 
-function SubmitButton() {
-  const { pending } = useFormStatus()
-  return (
-    <Button
-      type='submit'
-      variant='flat'
-      isLoading={pending}
-      startContent={
-        <FilePlus className='size-4 transition-transform group-hover:scale-110' />
-      }
-      className='group relative overflow-hidden bg-sidebar rounded-full font-mono tracking-tight text-sidebar-foreground hover:shadow-lg hover:shadow-primary/20 transition-all duration-300 font-medium px-7 py-2.5 border border-primary/20 hover:border-primary/30'
-    >
-      <span className='relative z-10 flex items-center gap-2'>
-        <span>Crear publicación</span>
-      </span>
-      <span className='absolute inset-0 bg-gradient-to-r from-primary/0 via-white/10 to-primary/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 -skew-x-12 -translate-x-full group-hover:translate-x-full'></span>
-    </Button>
-  )
-}
+
+
 
 export default function FormCreate() {
   const [content, setContent] = useState('')
   const [tags, setTags] = useState<string[]>([])
   const [title, setTitle] = useState('')
   const [imageUrl, setImageUrl] = useState<string | null>(null)
+  const [isSubmitting, setIsSubmitting] = useState(false)
 
   return (
     <section className='w-full max-w-6xl mx-auto mt-10 px-4'>
@@ -41,15 +24,50 @@ export default function FormCreate() {
         Crea tu blog
       </h1>
 
-      <form action={createPostAction} className='flex flex-col gap-4'>
+      <form
+        onSubmit={async (e) => {
+          e.preventDefault()
+          setIsSubmitting(true)
+          
+          try {
+            const form = e.currentTarget
+            const formData = new FormData(form)
+
+            formData.set('title', title)
+            formData.set('content', content)
+            formData.set('image_url', imageUrl || '')
+            formData.set('tags', JSON.stringify(tags))
+
+            await createPostAction(formData)
+          } finally {
+            setIsSubmitting(false)
+          }
+        }}
+        className='flex flex-col gap-4'
+      >
         <header className='flex flex-row items-center justify-between max-w-6xl'>
           <h6 className='text-md font-medium font-serif tracking-tight text-foreground/70'>
             Imagen
           </h6>
-          <SubmitButton />
+          <Button
+            type='submit'
+            variant='flat'
+            isLoading={isSubmitting}
+            startContent={
+              !isSubmitting && (
+                <FilePlus className='size-4 transition-transform group-hover:scale-110' />
+              )
+            }
+            className='group relative overflow-hidden bg-sidebar rounded-full font-mono tracking-tight text-sidebar-foreground hover:shadow-lg hover:shadow-primary/20 transition-all duration-300 font-medium px-7 py-2.5 border border-primary/20 hover:border-primary/30 disabled:opacity-50 disabled:cursor-not-allowed'
+            disabled={isSubmitting}
+          >
+            <span className='relative z-10 flex items-center gap-2'>
+              {isSubmitting ? 'Creando...' : 'Crear publicación'}
+            </span>
+            <span className='absolute inset-0 bg-gradient-to-r from-primary/0 via-white/10 to-primary/0 opacity-0 group-hover:opacity-100 group-disabled:opacity-0 transition-opacity duration-300 -skew-x-12 -translate-x-full group-hover:translate-x-full'></span>
+          </Button>
         </header>
         <PostImageForm onChange={setImageUrl} />
-
         <Input
           name='title'
           placeholder='Título del post'
@@ -97,7 +115,7 @@ export default function FormCreate() {
           placeholder='Escribe y presiona Enter para agregar tags...'
           maxTags={10}
         />
-
+        <input type='hidden' name='tags' value={JSON.stringify(tags)} />
         <div className='grid grid-cols-1 lg:grid-cols-2 gap-6 mt-8 h-[calc(100vh-250px)] mb-12'>
           <div className='flex flex-col h-full'>
             <div className='flex items-center justify-between mb-2'>

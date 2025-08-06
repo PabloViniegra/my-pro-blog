@@ -17,3 +17,10 @@ export async function getOrCreateUser({
 
   return result.rows[0]
 }
+
+export async function getUserByClerkId(clerkId: string) {
+  const { rows } =
+    await sql<UserSimple>`SELECT id, clerk_id, email, name, avatar_url FROM users WHERE clerk_id = ${clerkId}`
+
+  return rows[0]
+}

@@ -146,3 +146,15 @@ export async function createPost(post: PostCreate) {
 
   return rows[0]
 }
+
+export async function getPostById(id: string) {
+  const { rows } = await sql<PostWithAvatar>`
+    SELECT p.*, u.name as author_name, u.avatar_url as author_avatar
+    FROM posts p
+    JOIN users u ON p.author_id = u.id
+    WHERE p.id = ${id}
+    LIMIT 1
+  `
+
+  return rows[0]
+}

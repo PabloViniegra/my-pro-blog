@@ -23,7 +23,8 @@ export async function createPostAction(formData: FormData) {
   const title = formData.get('title') as string
   const content = formData.get('content') as string
   const image_url = formData.get('image_url') as string
-  const tags = formData.getAll('tags') as string[]
+  const tagsRaw = formData.get('tags') as string
+  const tags = JSON.parse(tagsRaw || '[]')
 
   const newPost = await createPost({
     title,

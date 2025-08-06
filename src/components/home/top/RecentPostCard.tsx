@@ -2,6 +2,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { Clock } from 'lucide-react'
 import type { PostWithAvatar } from '@/types'
+import { getSafeImageSrc } from '@/utils/utils'
 
 export default function RecentPostCard({
   recent
@@ -35,7 +36,7 @@ export default function RecentPostCard({
                 <div className='flex items-center mt-2 text-sm'>
                   <div className='flex items-center'>
                     <Image
-                      src={post.author_avatar || '/avatar.png'}
+                      src={getSafeImageSrc(post.author_avatar) || '/avatar.png'}
                       alt={post.author_name}
                       width={24}
                       height={24}

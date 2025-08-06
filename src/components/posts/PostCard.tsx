@@ -5,12 +5,13 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { Card, CardHeader, CardBody, CardFooter } from '@heroui/react'
 import GridTag from '@/components/posts/GridTag'
+import { getSafeImageSrc } from '@/utils/utils'
 
 export default function PostCard({ post }: { post: PostWithAvatar }) {
   return (
     <Card
       as={Link}
-      href={`/posts/${post.id}`}
+      href={`/posts/${post.id}/view`}
       isPressable
       isHoverable
       className='h-full transition-transform hover:-translate-y-1'
@@ -19,7 +20,7 @@ export default function PostCard({ post }: { post: PostWithAvatar }) {
       <CardBody className='flex h-full flex-col overflow-hidden p-0'>
         <div className='relative h-48 w-full flex-shrink-0'>
           <Image
-            src={post.image_url || '/placeholder.svg'}
+            src={getSafeImageSrc(post.image_url) || '/placeholder.svg'}
             alt={post.title}
             fill
             className='object-cover transition-transform duration-300 hover:scale-105'
@@ -42,7 +43,7 @@ export default function PostCard({ post }: { post: PostWithAvatar }) {
           <CardFooter className='mt-auto flex items-center gap-3 p-0'>
             <div className='relative h-8 w-8 flex-shrink-0 overflow-hidden rounded-full border border-border'>
               <Image
-                src={post.author_avatar || '/avatar.png'}
+                src={getSafeImageSrc(post.author_avatar) || '/avatar.png'}
                 alt={post.author_name}
                 fill
                 className='object-cover'
