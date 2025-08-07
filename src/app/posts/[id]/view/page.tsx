@@ -8,9 +8,14 @@ import { hasLikedPost } from '@/lib/likes'
 import { getUserByClerkId } from '@/lib/db'
 import { auth } from '@clerk/nextjs/server'
 import { hasSavedPost } from '@/lib/saved'
+import { getCommentsTree } from '@/lib/comments'
+import CommentForm from '@/components/posts/view/CommentForm'
+import { CommentTreeNode } from '@/types'
+import CommentsSection from '@/components/posts/view/CommentsSection'
 
 export async function generateMetadata({ params }: { params: { id: string } }) {
-  const post = await getPostById(params.id)
+  const { id } = await params
+  const post = await getPostById(id)
 
   if (!post) return {}
 
@@ -26,20 +31,23 @@ export async function generateMetadata({ params }: { params: { id: string } }) {
 }
 
 export default async function PostPage({ params }: { params: { id: string } }) {
-  if (!/^[0-9a-fA-F-]{36}$/.test(params.id)) {
+  const { id } = await params
+  if (!/^[0-9a-fA-F-]{36}$/.test(id)) {
     notFound()
   }
 
-  const post = await getPostById(params.id)
+  const post = await getPostById(id)
   if (!post) notFound()
 
   const { userId } = await auth()
   let isLike = false
   let isSave = false
+  let commentsTree: CommentTreeNode[] = []
   if (userId) {
     const dbUser = await getUserByClerkId(userId)
     isLike = await hasLikedPost(dbUser.id, post.id)
     isSave = await hasSavedPost(dbUser.id, post.id)
+    commentsTree = await getCommentsTree(post.id, dbUser.id)
   }
 
   return (
@@ -60,8 +68,14 @@ export default async function PostPage({ params }: { params: { id: string } }) {
         <div className='prose prose-invert max-w-none'>
           <PostContent content={post.content} />
         </div>
-
-        <PostActions isLike={isLike} isSave={isSave} postId={post.id} />
+        <PostActions postId={post.id} isLike={isLike} isSave={isSave} />
+        <section className='mt-10'>
+          <CommentForm postId={post.id} />
+          <CommentsSection
+            comments={commentsTree}
+            postAuthorName={post.author_name}
+          />
+        </section>
       </article>
     </>
   )

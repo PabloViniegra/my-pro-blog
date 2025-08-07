@@ -4,7 +4,6 @@ import { toggleLike } from '@/app/actions/likePost'
 import { toggleSave } from '@/app/actions/savePost'
 import { Button } from '@heroui/react'
 import { Heart, Share2, Bookmark } from 'lucide-react'
-import { useState } from 'react'
 import { useTransition } from 'react'
 
 interface Props {

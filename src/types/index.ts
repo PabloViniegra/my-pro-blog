@@ -90,3 +90,27 @@ export interface PostCreate {
   published: boolean
   author_id: string
 }
+
+export interface Comment {
+  id: string
+  post_id: string
+  author_id: string
+  content: string
+  parent_id: string | null
+  created_at: string
+  updated_at: string
+  author_name: string
+  author_avatar: string
+}
+
+export interface CommentCreate {
+  postId: string
+  authorId: string
+  content: string
+  parentId?: string | null
+}
+
+export interface CommentTreeNode extends Comment {
+  children: CommentTreeNode[]
+  has_liked: boolean
+}
