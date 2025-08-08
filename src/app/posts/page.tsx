@@ -7,24 +7,38 @@ import Footer from '@/components/shared/Footer/Footer'
 import { auth } from '@clerk/nextjs/server'
 import { redirect } from 'next/navigation'
 
-type Params = Promise<{
-  searchParams: { [key: string]: string | string[] }
-}>
+interface SearchParams {
+  search?: string | string[]
+  page?: string | string[]
+}
 
-export default async function PostsPage(props: { params: Params }) {
+export default async function PostsPage({
+  searchParams
+}: {
+  searchParams: SearchParams
+}) {
   const { userId } = await auth()
   if (!userId) {
     redirect('/signin')
   }
-  const params = await props.params
-  const searchParams = params.searchParams
 
-  const search =
-    typeof searchParams?.search === 'string' ? searchParams.search : ''
-  const page =
-    typeof searchParams?.page === 'string' ? parseInt(searchParams.page, 10) : 1
+  const search = Array.isArray(searchParams.search)
+    ? searchParams.search[0] || ''
+    : searchParams.search || ''
 
-  const result = await getAllPosts({ search, page })
+  const page = Array.isArray(searchParams.page)
+    ? parseInt(searchParams.page[0] || '1', 10)
+    : parseInt(searchParams.page || '1', 10)
+
+  const limit = 10
+  const offset = (page - 1) * limit
+
+  const result = await getAllPosts({
+    search: search.trim(),
+    page,
+    limit,
+    offset
+  })
   const posts = result.data || []
   const meta = result.meta || {}
 

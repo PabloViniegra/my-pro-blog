@@ -8,7 +8,7 @@ import {
   DropdownTrigger,
   Button
 } from '@heroui/react'
-import { BookOpen, Mail, LogOut, Plus } from 'lucide-react'
+import { BookOpen, LogOut, Plus, User } from 'lucide-react'
 import { useUser, SignOutButton } from '@clerk/nextjs'
 import Link from 'next/link'
 
@@ -56,13 +56,13 @@ export default function NavbarUserMenu() {
             Crear Post
           </DropdownItem>
           <DropdownItem
-            key='contact'
+            key='profile'
             as={Link}
-            href='/contact'
-            startContent={<Mail className='text-foreground/70' size={16} />}
+            href='/profile'
+            startContent={<User className='text-foreground/70' size={16} />}
             className='font-sans text-sm'
           >
-            Contacto
+            Ver perfil
           </DropdownItem>
           <DropdownItem
             key='logout'

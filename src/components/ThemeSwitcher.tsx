@@ -33,9 +33,9 @@ export default function ThemeSwitcher() {
   const getThemeIcon = () => {
     switch (theme) {
       case 'light':
-        return <Sun className='h-4 w-4' />
-      case 'dark':
         return <Moon className='h-4 w-4' />
+      case 'dark':
+        return <Sun className='h-4 w-4' />
       default:
         return <Monitor className='h-4 w-4' />
     }

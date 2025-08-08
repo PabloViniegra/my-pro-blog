@@ -98,7 +98,7 @@ export async function getAllPosts({
     SELECT p.*, u.name as author_name, u.avatar_url as author_avatar
     FROM posts p
     JOIN users u ON p.author_id = u.id
-    WHERE ${whereClause}
+    ${conditions.length > 0 ? 'WHERE' : ''} ${whereClause}
     ORDER BY p.created_at DESC
     LIMIT $${params.length - 1} OFFSET $${params.length}
   `

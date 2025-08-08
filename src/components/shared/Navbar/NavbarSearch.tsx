@@ -3,34 +3,35 @@
 import { Input } from '@heroui/react'
 import { Search } from 'lucide-react'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
-import { useState } from 'react'
+import { useEffect, useState, KeyboardEvent } from 'react'
 
 export default function NavbarSearch() {
   const searchParams = useSearchParams()
-  const pathName = usePathname()
-  const { replace } = useRouter()
+  const router = useRouter()
+  const [query, setQuery] = useState('')
 
-  const [query, setQuery] = useState(searchParams.get('search') ?? '')
+  // Sync with URL search param on initial load
+  useEffect(() => {
+    const searchParam = searchParams.get('search') || ''
+    setQuery(searchParam)
+  }, [searchParams])
 
-  const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+  const handleKeyDown = (event: KeyboardEvent<HTMLInputElement>) => {
     if (event.key === 'Enter') {
       const params = new URLSearchParams()
-      if (query) {
-        params.set('search', query)
+      
+      if (query.trim()) {
+        params.set('search', query.trim())
+      } else {
+        params.delete('search')
       }
-      replace(`/posts?${params.toString()}`)
+      
+      router.push(`/posts?${params.toString()}`)
     }
   }
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const value = event.target.value
-    setQuery(value)
-
-    if (value === '') {
-      const params = new URLSearchParams(searchParams)
-      params.delete('search')
-      replace(`${pathName}?${params.toString()}`)
-    }
+    setQuery(event.target.value)
   }
 
   return (
@@ -49,8 +50,8 @@ export default function NavbarSearch() {
           type='search'
           variant='bordered'
           value={query}
-          onKeyDown={handleKeyDown}
           onChange={handleChange}
+          onKeyDown={handleKeyDown}
         />
       </div>
     </div>
