@@ -2,7 +2,7 @@
 
 import { Input } from '@heroui/react'
 import { Search } from 'lucide-react'
-import { usePathname, useRouter, useSearchParams } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 import { useEffect, useState, KeyboardEvent } from 'react'
 
 export default function NavbarSearch() {
@@ -10,7 +10,6 @@ export default function NavbarSearch() {
   const router = useRouter()
   const [query, setQuery] = useState('')
 
-  // Sync with URL search param on initial load
   useEffect(() => {
     const searchParam = searchParams.get('search') || ''
     setQuery(searchParam)
@@ -19,13 +18,13 @@ export default function NavbarSearch() {
   const handleKeyDown = (event: KeyboardEvent<HTMLInputElement>) => {
     if (event.key === 'Enter') {
       const params = new URLSearchParams()
-      
+
       if (query.trim()) {
         params.set('search', query.trim())
       } else {
         params.delete('search')
       }
-      
+
       router.push(`/posts?${params.toString()}`)
     }
   }

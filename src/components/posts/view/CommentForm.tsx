@@ -34,7 +34,7 @@ export default function CommentForm({
   postId: string
   parentId?: string
 }) {
-  const [_, setIsFocused] = useState(false)
+  const [isFocused, setIsFocused] = useState(false)
   const [value, setValue] = useState('')
   const [showSuccess, setShowSuccess] = useState(false)
 
@@ -75,7 +75,9 @@ export default function CommentForm({
                 aria-label='Escribe tu comentario aquí'
                 minRows={4}
                 classNames={{
-                  input: 'py-3 font-sans text-sm',
+                  input: `py-3 font-sans text-sm ${
+                    isFocused ? 'border-primary' : ''
+                  }`,
                   inputWrapper: 'h-auto'
                 }}
               />

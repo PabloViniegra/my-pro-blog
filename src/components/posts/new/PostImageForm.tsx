@@ -81,7 +81,7 @@ export default function PostImageForm({
           <div className='relative w-24 h-24 flex-shrink-0'>
             <img
               src={previewUrl}
-              alt='Preview'
+              alt={imageUrl || 'Preview'}
               className='w-full h-full object-cover rounded-md'
             />
             {isUploading && (
@@ -106,7 +106,7 @@ export default function PostImageForm({
               : 'JPG, PNG o WEBP. Max 5MB.'}
           </p>
           <Button
-            onClick={handleButtonClick}
+            onPress={handleButtonClick}
             isDisabled={isUploading}
             startContent={
               isUploading ? (

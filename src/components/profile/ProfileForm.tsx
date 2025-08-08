@@ -1,7 +1,6 @@
 'use client'
 
 import { useState } from 'react'
-import { useUser } from '@clerk/nextjs'
 import { Button } from '@heroui/button'
 import { Input } from '@heroui/input'
 import { Save, X } from 'lucide-react'

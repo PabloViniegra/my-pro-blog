@@ -26,7 +26,7 @@ export async function createPostAction(formData: FormData) {
   const tagsRaw = formData.get('tags') as string
   const tags = JSON.parse(tagsRaw || '[]')
 
-  const newPost = await createPost({
+  await createPost({
     title,
     content,
     image_url,

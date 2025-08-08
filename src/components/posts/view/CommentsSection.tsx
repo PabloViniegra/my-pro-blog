@@ -1,6 +1,6 @@
 'use client'
 
-import type { CommentTreeNode, Comment as CommentType } from '@/types'
+import type { CommentTreeNode } from '@/types'
 import { formatDistanceToNow } from 'date-fns'
 import {
   UserCircle2,
@@ -144,7 +144,7 @@ function Comment({ comment, isPostAuthor = false }: CommentProps) {
         <div className='relative ml-8'>
           <div className='absolute left-0 top-0 bottom-0 w-px bg-border' />
 
-          {comment.children.map((child, index) => (
+          {comment.children.map((child) => (
             <div key={child.id} className='relative pl-6'>
               <div className='absolute left-0 top-6 w-4 h-px bg-border' />
 
