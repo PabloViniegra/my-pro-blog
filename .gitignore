@@ -43,3 +43,6 @@ bash.exe.stackdump
 
 .vercel
 .env*.local
+
+# Windsurf
+.windsurf/
