@@ -7,16 +7,7 @@ import Footer from '@/components/shared/Footer/Footer'
 import { auth } from '@clerk/nextjs/server'
 import { redirect } from 'next/navigation'
 
-interface SearchParams {
-  search?: string | string[]
-  page?: string | string[]
-}
-
-export default async function PostsPage({
-  searchParams
-}: {
-  searchParams: SearchParams
-}) {
+export default async function PostsPage({ searchParams }: any) {
   const { userId } = await auth()
   if (!userId) {
     redirect('/signin')
