@@ -13,7 +13,7 @@ import CommentForm from '@/components/posts/view/CommentForm'
 import { CommentTreeNode } from '@/types'
 import CommentsSection from '@/components/posts/view/CommentsSection'
 
-export async function generateMetadata({ params }: { params: { id: string } }) {
+export async function generateMetadata({ params }: any) {
   const { id } = params
   const post = await getPostById(id)
 
@@ -30,7 +30,7 @@ export async function generateMetadata({ params }: { params: { id: string } }) {
   }
 }
 
-export default async function PostPage({ params }: { params: { id: string } }) {
+export default async function PostPage({ params }: any) {
   const { id } = params
   if (!/^[0-9a-fA-F-]{36}$/.test(id)) {
     notFound()

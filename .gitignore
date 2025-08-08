@@ -46,3 +46,6 @@ bash.exe.stackdump
 
 # Windsurf
 .windsurf/
+
+## Idea
+.idea/
